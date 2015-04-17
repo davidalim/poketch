@@ -8,4 +8,4 @@ Move movelist[NUM_MOVES];   //NEED THESE?
 Pokemon pokelist[NUM_POKES];
 
 Pokemon get_poke(int num);
-Move get_poke(int num);
+Move get_move(int num);
