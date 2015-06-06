@@ -1,11 +1,13 @@
 #pragma once
 #include "poke.h"
-
+#include "pokemon.h"
+  
 #define NUM_POKES 4
 #define NUM_MOVES 4
+  
+typedef struct {
+  Pokemon pokes[NUM_POKES];
+  Move moves[NUM_MOVES];
+} Pokedex;
 
-Move movelist[NUM_MOVES];   //NEED THESE?
-Pokemon pokelist[NUM_POKES];
-
-Pokemon get_poke(int num);
-Move get_move(int num);
+Pokedex init_pokedex();

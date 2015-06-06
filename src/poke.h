@@ -13,69 +13,69 @@
 #define PHYSICAL 1;
 #define STATUS 1;
 #define SPECIAL 1;
-  
-typedef struct {
-  char[15] name;
-  int number;
-  int catch_rate
-  int level_rate;
-  int[2] types;
-  int level;
-  int hp_base;
-  int hp_ext;
-  int hp_taken;
-  int attack_base;
-  int attack_ext;
-  int attack_taken;
-  int defense_base;
-  int defense_ext;
-  int defense_taken;
-  int speed_base;
-  int speed_ext;
-  int speed_taken;
-  int special_base;
-  int special_ext;
-  int special_taken;
-  int exp_base;
-  int exp_ext;
-  int[10] normal;
-  int normal_size;
-  int[10] weak;
-  int weak_size;
-  int[10] immune;
-  int immune_size;
-  int[10] resistant;
-  int resistant_size;
-  int level_rate;
-  Move[4] moves;
-  int moves_size;
-  char[10] image_front;
-  char[10] image_back;
+
+typedef struct { // TOTAL 24 bytes
+  char name[18];
+  uint8_t number;
+  uint8_t type;
+  uint8_t category;
+  uint8_t pp;
+  uint8_t power;
+  uint8_t accuracy;
+} Move;
+
+
+typedef struct {          // TOTAL 188 bytes (+1)
+  Move moves[4];          // 96
+  char name[16];          // 64
+  uint8_t normal[8];
+  uint8_t weak[8];
+  uint8_t immune[8];
+  uint8_t resistant[8];
+  char image_front[8];
+  char image_back[8];
+  uint8_t types[2];       // 28
+  uint8_t number;
+  uint8_t catch_rate;
+  uint8_t level_rate;
+  uint8_t level;
+  uint8_t hp_base;
+  uint8_t hp_ext;
+  uint8_t hp_taken;
+  uint8_t attack_base;
+  uint8_t attack_ext;
+  uint8_t attack_taken;
+  uint8_t defense_base;
+  uint8_t defense_ext;
+  uint8_t defense_taken;
+  uint8_t speed_base;
+  uint8_t speed_ext;
+  uint8_t speed_taken;
+  uint8_t special_base;
+  uint8_t special_ext;
+  uint8_t special_taken;
+  uint8_t exp_base;
+  uint8_t exp_ext;
+  uint8_t normal_size;
+  uint8_t weak_size;
+  uint8_t immune_size;
+  uint8_t resistant_size;
+  uint8_t moves_size;
   bool faint;
 } Pokemon;
 
-Pokemon new_pokemon (char[15] name, int number, int[2] types, int type_size, int level, int catch_rate, int level_rate,
-                       int hp_base, int attack_base, int defense_base, int speed_base, int special_base,
-                       int exp_base, int[10] normal, int normal_size, int[10] weak, int weak_size,
-                       int[10] immune, int immune_size, int[10] resistant, int resistant_size, Move[4] moves,
-                       int moves_size, char[10] image_back, char[10] image_front);
+Pokemon new_pokemon (char name[16], uint8_t number, uint8_t types[2], uint8_t type_size, uint8_t level, uint8_t catch_rate, uint8_t level_rate,
+                       uint8_t hp_base, uint8_t attack_base, uint8_t defense_base, uint8_t speed_base, uint8_t special_base,
+                       uint8_t exp_base, uint8_t normal[8], uint8_t normal_size, uint8_t weak[8], uint8_t weak_size,
+                       uint8_t immune[8], uint8_t immune_size, uint8_t resistant[8], uint8_t resistant_size, Move moves[4],
+                       uint8_t moves_size, char image_back[8], char image_front[8], bool faint);
+
+Move new_move (char name[16], uint8_t number, uint8_t type, uint8_t category, uint8_t pp, uint8_t power, uint8_t accuracy);
 
 typedef struct {
-  char[15] name;
-  int number;
-  int type;
-  int category;
-  int pp;
-  int power;
-  int accuracy;
-} Move;
-
-Move new_move (char[15] name, int number, int type, int category, int pp, int pp, int power, int accuracy);
-
-typedef struct {
-  int hp;
-  int attack;
-  int defense;
+  uint8_t hp;
+  uint8_t attack;
+  uint8_t defense;
 } Damage;
 
-Damage new_damage (int hp, int attack, int defense);
+Damage new_damage (uint8_t hp, uint8_t attack, uint8_t defense);

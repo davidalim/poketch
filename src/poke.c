@@ -1,18 +1,20 @@
 #include <pebble.h>
+#include <string.h>
 #include "poke.h"
   
-Pokemon new_pokemon (char[15] name, int number, int[2] types, int type_size, int level, int catch_rate, int level_rate,
-                       int hp_base, int attack_base, int defense_base, int speed_base, int special_base,
-                       int exp_base, int[10] normal, int normal_size, int[10] weak, int weak_size,
-                       int[10] immune, int immune_size, int[10] resistant, int resistant_size, Move[4] moves,
-                       int moves_size, char[10] image_back, char[10] image_front) {
+Pokemon new_pokemon (char name[16], uint8_t number, uint8_t types[2], uint8_t type_size, uint8_t level, uint8_t catch_rate, uint8_t level_rate,
+                       uint8_t hp_base, uint8_t attack_base, uint8_t defense_base, uint8_t speed_base, uint8_t special_base,
+                       uint8_t exp_base, uint8_t normal[8], uint8_t normal_size, uint8_t weak[8], uint8_t weak_size,
+                       uint8_t immune[8], uint8_t immune_size, uint8_t resistant[8], uint8_t resistant_size, Move moves[4],
+                       uint8_t moves_size, char image_back[8], char image_front[8], bool faint) {
   Pokemon poke;
   
-  poke.name = name;
+  strcpy(poke.name, name);
   poke.number = number;
-  poke.catch_rate = catch_rate
+  poke.catch_rate = catch_rate;
   poke.level_rate = level_rate;
-  poke.types = types;
+  poke.types[0] = types[0];
+  poke.types[1] = types[1];
   poke.level = level;
   poke.hp_base = hp_base;
   poke.hp_ext = 0;
@@ -31,28 +33,28 @@ Pokemon new_pokemon (char[15] name, int number, int[2] types, int type_size, int
   poke.special_taken = 0;
   poke.exp_base = exp_base;
   poke.exp_ext = 0;
-  poke.normal = normal;
+  memcpy(&poke.normal, &normal, sizeof(uint8_t[8]));
   poke.normal_size = normal_size;
-  poke.weak = weak;
+  memcpy(&poke.weak, &weak, sizeof(uint8_t[8]));
   poke.weak_size = weak_size;
-  poke.immune = immune;
-  poke.immune_size immune_size;
-  poke.resistant = resistant;
-  poke.resistant_size resistant_size;
+  memcpy(&poke.immune, &immune, sizeof(uint8_t[8]));
+  poke.immune_size = immune_size;
+  memcpy(&poke.resistant, &resistant, sizeof(uint8_t[8]));
+  poke.resistant_size = resistant_size;
   poke.level_rate = level_rate;
-  poke.moves = moves;
+  memcpy(&poke.moves, &moves, sizeof(Move[4]));
   poke.moves_size = moves_size;
-  poke.image_front = image_front;
-  poke.image_back image_back;
+  strcpy(poke.image_front, image_front);
+  strcpy(poke.image_back, image_back);
   poke.faint = faint;
   
   return poke;
 }
 
-Move new_move (char[15] name, int number, int type, int category, int pp, int pp, int power, int accuracy) {
+Move new_move (char name[16], uint8_t number, uint8_t type, uint8_t category, uint8_t pp, uint8_t power, uint8_t accuracy) {
   Move move;
   
-  move.name = name;
+  strcpy(move.name, name);
   move.number = number;
   move.type = type;
   move.category = category;
@@ -63,7 +65,7 @@ Move new_move (char[15] name, int number, int type, int category, int pp, int pp
   return move;
 }
 
-Damage new_damage (int hp, int attack, int defense) {
+Damage new_damage (uint8_t hp, uint8_t attack, uint8_t defense) {
   Damage dam;
   
   dam.hp = hp;
